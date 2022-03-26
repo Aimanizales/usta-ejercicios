@@ -13,8 +13,10 @@ def init():
 # 2. Esta función crea una lista vacía para cada 
 # ciudad de acuerdo a la variable cities:
 def initTicketsPerCity():
-    print(f'Hay {len(cities)} ciudades para este viaje.')
-    print(f'Cada ciudad puede tener hasta {MAX_UNITS_PER_CITY} tickets.')
+    print(
+        f'Hay {len(cities)} ciudades para este viaje.\n'
+        f'Cada una puede tener hasta {MAX_UNITS_PER_CITY} tickets.'
+    )
     cityCounter = 0
     for city in cities:
         ticketsPerCity[city]=[]
@@ -44,7 +46,7 @@ def showCitiesInfo(hideNumbers = False):
 def selectCity():
     selectedCity = int(input('\n>> Ingrese el número de la ciudad: ')) - 1
     if selectedCity >= len(cities) or selectedCity < 0:
-        print('Seleccione correctamente el número de la ciudad')
+        print('Seleccione correctamente el número de la ciudad:')
         selectCity()
     else:
         return selectedCity
@@ -113,10 +115,12 @@ def deleteTicketInfo(selectedCity):
 
 # El controlador principal de la aplicación:
 def selectOption():
-    print('\n1: Insertar ticket')
-    print('2: Borrar ticket')
-    print('3: Ver lista de tickets')
-    print('4: Salir de la aplicación')
+    print('\n'
+        '1: Insertar ticket\n'
+        '2: Borrar ticket\n'
+        '3: Ver lista de tickets\n'
+        '4: Salir de la aplicación'
+    )
     selectedOption = input('\n>>>>> Ingrese una opción: ')
     if selectedOption.isdigit():
         selectedOption = int(selectedOption)
