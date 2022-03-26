@@ -1,8 +1,9 @@
-from random import random
+import random
 
 cities = ['Paris', 'Amsterdam', 'Berlin', 'Prague', 'Vienna']
 ticketsPerCity = {}
 MAX_UNITS_PER_CITY = 20
+numTicketSequence = 0
 
 # 1. Primera función que se ejecuta:
 def init():
@@ -21,10 +22,12 @@ def initTicketsPerCity():
     showCitiesInfo(True)
 
 # Esta función es transversal a la aplicación y solo es para mostrar la
-# información actualizada de las ciudades y su número de tickets:
+# información actualizada de las ciudades y su número de tickets.
+# Muestra las ciudades numeradas para mayor facilidad al momento de elegir
+# una usando el parámetro hideNumbers:
 def showCitiesInfo(hideNumbers = False):
     if hideNumbers == True:
-        print('\n\CIUDADES:')
+        print('\nCIUDADES:')
     count = 1
     for city in cities:
         numTickets = len(ticketsPerCity[city])
@@ -34,7 +37,7 @@ def showCitiesInfo(hideNumbers = False):
         counter = str(count) + '. '
         if hideNumbers:
             counter = ''
-        print(f' - {counter}{city} -- [{message}]')
+        print(f' - {counter}{city} [{message}]')
         count += 1
 
 # Permite únicamente seleccionar la ciudad digitando un número:
@@ -57,16 +60,27 @@ def initInsertInfo():
 
 
 def insertTicketInfo(selectedCity):
+    global numTicketSequence
+    numTicketSequence += 1
     print(f'Ingrese información del ticket:')
+
+    # Datos del ticket ingresados por el usuario:
     city = input('>> Ciudad de origen: ')
     startDate = input('>> Fecha de inicio (dd/mm/aaaa): ')
 
-    id += 1
-    reference = random()
-    ticket = dict(ticketId=id, reference=reference, city=city, startDate=startDate)
+    # Creación del ticket:
+    ticket = dict(
+        ticketId = random.randint(0, 100000),
+        reference = numTicketSequence,
+        city = city,
+        startDate=startDate
+    )
 
     insertTicketIntoCityList(ticket, selectedCity)
 
+    numTicketSequence += 1
+
+# Después de creado el ticket, se inserta en la ciudad correspondiente:
 def insertTicketIntoCityList(ticket, selectedCity):
     currentCity = cities[selectedCity]
     ticketsPerCity[currentCity].append(ticket)
@@ -74,6 +88,7 @@ def insertTicketIntoCityList(ticket, selectedCity):
     print(ticketsPerCity)
     selectOption()
 
+# Selecciona la ciudad a borrar el ticket:
 def initDeleteTicket():
     print('\n¿A qué ciudad desea eliminar tiquete?:')
     showCitiesInfo()
@@ -82,6 +97,7 @@ def initDeleteTicket():
     print(f'\nCiudad seleccionada: {cities[selectedCity]}\n')
     deleteTicketInfo(selectedCity)
 
+# Borra el ticket de la ciudad elegida. Valida si la ciudad no tiene: 
 def deleteTicketInfo(selectedCity):
     currentCity = cities[selectedCity]
     currentCityTickets = ticketsPerCity[currentCity]
@@ -95,20 +111,24 @@ def deleteTicketInfo(selectedCity):
     
     selectOption()
 
+# El controlador principal de la aplicación:
 def selectOption():
     print('\n1: Insertar ticket')
     print('2: Borrar ticket')
     print('3: Ver lista de tickets')
+    print('4: Salir de la aplicación')
     selectedOption = int(input('\n>>>>> Ingrese una opción: '))
-    if selectedOption < 1 or selectedOption > 3:
+    if selectedOption < 1 or selectedOption > 4:
         print('Seleccione correctamente una opción.')
         selectOption()
     elif selectedOption == 1:
         initInsertInfo()
     elif selectedOption == 2:
         initDeleteTicket()
-    else:
+    elif selectedOption == 3:
         showCitiesInfo(True)
         selectOption()
+    else:
+        quit()
 
 init()
