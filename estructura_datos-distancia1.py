@@ -117,18 +117,23 @@ def selectOption():
     print('2: Borrar ticket')
     print('3: Ver lista de tickets')
     print('4: Salir de la aplicación')
-    selectedOption = int(input('\n>>>>> Ingrese una opción: '))
-    if selectedOption < 1 or selectedOption > 4:
-        print('Seleccione correctamente una opción.')
-        selectOption()
-    elif selectedOption == 1:
-        initInsertInfo()
-    elif selectedOption == 2:
-        initDeleteTicket()
-    elif selectedOption == 3:
-        showCitiesInfo(True)
-        selectOption()
+    selectedOption = input('\n>>>>> Ingrese una opción: ')
+    if selectedOption.isdigit():
+        selectedOption = int(selectedOption)
+        if selectedOption < 1 or selectedOption > 5:
+            print('Seleccione correctamente una opción.')
+            selectOption()
+        elif selectedOption == 1:
+            initInsertInfo()
+        elif selectedOption == 2:
+            initDeleteTicket()
+        elif selectedOption == 3:
+            showCitiesInfo(True)
+            selectOption()
+        else:
+            quit()
     else:
-        quit()
+        print('La opción debe ser un número.')
+        selectOption()
 
 init()
