@@ -2,7 +2,7 @@ import random
 
 cities = ['Paris', 'Amsterdam', 'Berlin', 'Prague', 'Vienna']
 ticketsPerCity = {}
-MAX_UNITS_PER_CITY = 20
+MAX_UNITS_PER_CITY = 2
 numTicketSequence = 0
 
 # 1. Primera función que se ejecuta:
@@ -31,15 +31,16 @@ def showCitiesInfo(hideNumbers = False):
     if hideNumbers == True:
         print('\nCIUDADES:')
     count = 1
+    message = ''
     for city in cities:
-        numTickets = len(ticketsPerCity[city])
-        message = str(numTickets) + ' tickets'
-        if numTickets == 1:
-            message = str(numTickets) + ' ticket'
         counter = str(count) + '. '
         if hideNumbers:
+            numTickets = len(ticketsPerCity[city])
+            message = '\t' + str(numTickets) + ' ticket'
+            if numTickets != 1:
+                message += 's'
             counter = ''
-        print(f' - {counter}{city} [{message}]')
+        print(f' - {counter}{city} {message}')
         count += 1
 
 # Permite únicamente seleccionar la ciudad digitando un número:
@@ -57,8 +58,14 @@ def initInsertInfo():
     showCitiesInfo()
 
     selectedCity = selectCity()
-    print(f'Ciudad seleccionada: {cities[selectedCity]}\n')
-    insertTicketInfo(selectedCity)
+    cityNameSelected = cities[selectedCity]
+
+    print(f'Ciudad seleccionada: {cityNameSelected}\n')
+    if len(ticketsPerCity[cityNameSelected]) >= MAX_UNITS_PER_CITY:
+        print(f'{cityNameSelected} ha completado su máximo de tickets.\n')
+        selectOption()
+    else:
+        insertTicketInfo(selectedCity)
 
 
 def insertTicketInfo(selectedCity):
