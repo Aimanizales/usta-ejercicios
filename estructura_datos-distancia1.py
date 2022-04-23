@@ -2,7 +2,7 @@ import random
 
 cities = ['Paris', 'Amsterdam', 'Berlin', 'Prague', 'Vienna']
 ticketsPerCity = {}
-MAX_UNITS_PER_CITY = 2
+MAX_UNITS_PER_CITY = 10
 numTicketSequence = 0
 
 # 1. Primera función que se ejecuta:
