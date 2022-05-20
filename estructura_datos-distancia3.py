@@ -4,6 +4,7 @@ cities = ['Paris', 'Amsterdam', 'Berlin', 'Prague']
 ticketsPerCity = {}
 ticketsToVienna = []
 numTicketSequence = 0
+originCity = ''
 
 # 1. Primera función que se ejecuta:
 def init():
@@ -28,7 +29,7 @@ def printTicketList():
             else:
                 print('[]')
 
-    print(f'\nLISTA TOTAL DE TICKETS A VIENNA ({len(ticketsToVienna)}):')
+    print(f'\nLISTA TOTAL DE TICKETS A VIENA ({len(ticketsToVienna)}):')
     n = 1
     for ticket in ticketsToVienna:
         print(f'   {n}. {ticket}')
@@ -36,8 +37,8 @@ def printTicketList():
 
 # Esta función es transversal a la aplicación y solo es para mostrar la
 # información actualizada de las ciudades y su número de tickets.
-# Muestra las ciudades numeradas para mayor facilidad al momento de elegir
-# una usando el parámetro hideNumbers:
+# Muestra las ciudades numeradas para mayor facilidad al momento de
+# elegir una, usando el parámetro hideNumbers:
 def showCitiesInfo(hideNumbers = False):
     if hideNumbers == True:
         print('\nCANTIDAD DE TICKETS COMPRADOS POR CIUDAD DE INICIO:')
@@ -65,23 +66,27 @@ def selectCity():
 
 # Inicia el proceso de escoger la ciudad para insertar el nuevo ticket:
 def initInsertInfo():
+    global originCity
+    originCity = input('>> Ciudad de origen del turista: ')
+
     print('\n¿DESDE QUÉ CIUDAD DESEA INICIAR EL TOUR?:')
     showCitiesInfo()
 
     selectedCity = selectCity()
     cityNameSelected = cities[selectedCity]
 
-    print(f'Ciudad seleccionada: {cityNameSelected}\n')
+    print(f'Ciudad desde donde se iniciará tour: {cityNameSelected}\n')
     insertTicketInfo(selectedCity)
 
 def insertTicketInfo(selectedCity):
     global numTicketSequence
     numTicketSequence += 1
+
+
     print(f'Ingrese día y mes de partida (dd/mm):')
 
     # Datos del ticket ingresados por el usuario:
     departureDate = input('>> ')
-    originCity = input('>> Ciudad de origen: ')
 
     # Creación del ticket:
     ticket = dict(
@@ -95,14 +100,19 @@ def insertTicketInfo(selectedCity):
 
     numTicketSequence += 1
 
-# Después de creado el ticket, se inserta en la ciudad correspondiente:
+# Creado el ticket, se inserta en las ciudades correspondientes:
 def insertTicketIntoCityList(ticket, selectedCity):
     currentCityNumber = selectedCity
     currentCity = cities[currentCityNumber]
+
+    # 1. Se ingresa el ticket en la ciudad elegida:
     ticketsPerCity[currentCity].append(ticket)
+
+    # 2. Luego se inserta en las ciudades siguientes en orden:
     if currentCityNumber < len(cities) - 1:
         insertTicketIntoCityList(ticket, currentCityNumber + 1)
 
+    # Y acá se inserta en la ciudad final que es Viena:
     ticketsToVienna.append(ticket)
 
     print(f'\nTICKET INGRESADO.\n')
