@@ -2,15 +2,14 @@
 
 Requerimientos: Python 3.10.2
 
-## 1. Evaluación distancia 1 (Listas estáticas):
-### Objetivos:
-- Añadir elementos a una lista.
-- Remover elementos.
-- Ver la lista.
-
+## 3. Evaluación distancia 3 (TDA Dinámico/Estático):
+### Objetivos principales:
+- 
+### Nuevos features:
+- 
 #### ¿Cómo correr el ejercicio?
 ```shell
-$ python3 estructura_datos-distancia1.py
+$ python3 estructura_datos-distancia3.py
 ```
 
 ## 2. Evaluación distancia 2 (Listas FIFO):
@@ -25,3 +24,15 @@ $ python3 estructura_datos-distancia1.py
 ```shell
 $ python3 estructura_datos-distancia2.py
 ```
+
+## 1. Evaluación distancia 1 (Listas estáticas):
+### Objetivos:
+- Añadir elementos a una lista.
+- Remover elementos.
+- Ver la lista.
+
+#### ¿Cómo correr el ejercicio?
+```shell
+$ python3 estructura_datos-distancia1.py
+```
+
