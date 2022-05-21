@@ -12,7 +12,7 @@ def init():
     selectOption()
 
 # 2. Esta función crea una lista vacía para cada 
-# ciudad de acuerdo a la variable cities:
+# ciudad, de acuerdo a la variable cities:
 def initTicketsPerCity():
     for city in cities:
         ticketsPerCity[city] = []
@@ -20,7 +20,6 @@ def initTicketsPerCity():
 def printTicketList():
     print('\nLISTA DE TICKETS:')
     global ticketsPerCity
-    print('ticketsPerCity =', ticketsPerCity)
     for key, value in ticketsPerCity.items():
         print(f'- {key}:')
         m = 1
@@ -108,7 +107,7 @@ def getDayDeparture(departureMonth):
         print(f'El número del día debe ser entre 1 y {numDaysMonth}:')
         getDayDeparture(departureMonth)
 
-    return str(departureMonth) + '/' + str(departureDay) + '/2022'
+    return [departureMonth, departureDay, 2022]
 
 def generateTicketInfo(city):
     global numTicketSequence
@@ -129,25 +128,21 @@ def generateTicketInfo(city):
 # Creado el ticket, se inserta en las ciudades correspondientes:
 def insertTicketIntoCitiesList(ticket, cityNumberArray):
     cityNumberCounter = cityNumberArray
-    # print(f'\n  0. cityNumberArray: {cityNumberArray}  cityNumberCounter: {cityNumberCounter}')
 
     if cityNumberCounter < len(cities):
         currentCityName = cities[cityNumberCounter]
-        # print(f'\n  0. currentCityName: {currentCityName}')
         
         global ticketsPerCity
-        # print(f'\n  1. Ticket: {ticket}')
         ticketsPerCity[currentCityName].append(ticket)
-        # print(f'\n  2. Ticket agregado a {currentCityName}')
-        # print(f'\n  3.1 ticketsPerCity: {ticketsPerCity}')
 
+        # Si no se duplica el ticket usando dict(), se edita
+        # la referencia del ticket original:
         modifiedTicket = dict(ticket)
+
         cityNumberCounter += 1
         modifiedTicket["departure_city"] = cities[cityNumberCounter - 1]
 
         insertTicketIntoCitiesList(modifiedTicket, cityNumberCounter)
-
-    # print(f'\n  ticketsPerCity: {ticketsPerCity}\n')
 
     ticketsToVienna.append(ticket)
 
@@ -157,10 +152,10 @@ def insertTicketIntoCitiesList(ticket, cityNumberArray):
 def deleteViennaTicketFIFO():
 
     if len(ticketsToVienna) == 0:
-        print('\nLa lista Viena está vacía.')
+        print('\nLa lista de Viena está vacía.')
     else:
         ticketsToVienna.pop(0)
-        print(f'\nEliminado primer ticket de la lista Viena')
+        print(f'\nEliminado primer ticket de la lista de Viena')
     
     selectOption()
 
@@ -168,11 +163,11 @@ def deleteViennaTicketFIFO():
 def selectOption():
     print('\n'
         '========================================\n'
-        '1: Insertar ticket\n'
+        '1: Insertar nuevo ticket\n'
         '2: Borrar primer ticket de Viena (FIFO)\n'
         '3: Ver cantidad de tickets comprados por ciudad\n'
         '4: Ver lista completa de tickets\n'
-        '5: Salir'
+        '5: Salir de la aplicación'
     )
     selectedOption = input('\n>>>>> Ingrese una opción: ')
     if selectedOption.isdigit():
