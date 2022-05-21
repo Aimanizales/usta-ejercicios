@@ -1,6 +1,6 @@
 import random
 
-cities = ['Paris', 'Amsterdam', 'Berlin', 'Prague']
+cities = ['Paris', 'Amsterdam', 'Berlin', 'Praga']
 ticketsPerCity = {}
 ticketsToVienna = []
 numTicketSequence = 0
@@ -18,10 +18,13 @@ def initTicketsPerCity():
         ticketsPerCity[city] = []
 
 def printTicketList():
-    print('\nLISTA DE TICKETS COMPRADOS POR CIUDAD DE INICIO:')
+    print('\nLISTA DE TICKETS:')
+    global ticketsPerCity
+    print('ticketsPerCity =', ticketsPerCity)
     for key, value in ticketsPerCity.items():
         print(f'- {key}:')
         m = 1
+
         for ticket in value:
             if ticket:
                 print(f'  {m}. {ticket}')
@@ -41,7 +44,7 @@ def printTicketList():
 # elegir una, usando el parámetro hideNumbers:
 def showCitiesInfo(hideNumbers = False):
     if hideNumbers == True:
-        print('\nCANTIDAD DE TICKETS COMPRADOS POR CIUDAD DE INICIO:')
+        print('\nCANTIDAD DE TICKETS COMPRADOS POR CIUDAD:')
     count = 1
     message = ''
     for city in cities:
@@ -56,13 +59,13 @@ def showCitiesInfo(hideNumbers = False):
         count += 1
 
 # Permite únicamente seleccionar la ciudad digitando un número:
-def selectCity():
-    selectedCity = int(input('\n>> Ingrese el número de la ciudad: ')) - 1
-    if selectedCity >= len(cities) or selectedCity < 0:
+def selectCityNumber():
+    cityNumberArray = int(input('\n>> Ingrese el número de la ciudad: ')) - 1
+    if cityNumberArray >= len(cities) or cityNumberArray < 0:
         print('Seleccione correctamente el número de la ciudad:')
-        selectCity()
+        selectCityNumber()
     else:
-        return selectedCity
+        return cityNumberArray
 
 # Inicia el proceso de escoger la ciudad para insertar el nuevo ticket:
 def initInsertInfo():
@@ -72,50 +75,81 @@ def initInsertInfo():
     print('\n¿DESDE QUÉ CIUDAD DESEA INICIAR EL TOUR?:')
     showCitiesInfo()
 
-    selectedCity = selectCity()
-    cityNameSelected = cities[selectedCity]
+    cityNumberArray = selectCityNumber()
+    cityNameSelected = cities[cityNumberArray]
 
-    print(f'Ciudad desde donde se iniciará tour: {cityNameSelected}\n')
-    insertTicketInfo(selectedCity)
+    print(f'Ciudad desde donde se iniciará el tour: {cityNameSelected}\n')
 
-def insertTicketInfo(selectedCity):
+    ticket = generateTicketInfo(originCity)
+
+    insertTicketIntoCitiesList(ticket, cityNumberArray)
+
+def getMonthDeparture():
+    print('Ingrese número del mes de partida (1 a 12):')
+    departureMonth = int(input('>> '))
+
+    if departureMonth < 1 or departureMonth > 12:
+        print('El número del mes debe ser entre 1 y 12:')
+        getMonthDeparture()
+
+    return getDayDeparture(departureMonth)
+
+def getDayDeparture(departureMonth):
+    numDaysMonth = 30
+    longestMonts = [1,3,5,7,8,10,12]
+    if departureMonth in longestMonts:
+        numDaysMonth = 31
+    elif departureMonth == 2:
+        numDaysMonth = 28
+    print(f'Ingrese el número del día de partida (1 a {numDaysMonth}):')
+    departureDay = int(input('>> '))
+
+    if departureDay < 1 or departureDay > numDaysMonth:
+        print(f'El número del día debe ser entre 1 y {numDaysMonth}:')
+        getDayDeparture(departureMonth)
+
+    return str(departureMonth) + '/' + str(departureDay) + '/2022'
+
+def generateTicketInfo(city):
     global numTicketSequence
     numTicketSequence += 1
 
-
-    print(f'Ingrese día y mes de partida (dd/mm):')
-
-    # Datos del ticket ingresados por el usuario:
-    departureDate = input('>> ')
+    departureDate = getMonthDeparture()
 
     # Creación del ticket:
     ticket = dict(
         ticket_id = random.randint(0, 100000),
-        ref_number = '000' + str(numTicketSequence),
-        origin_city = originCity,
-        departure_date = departureDate + '/2022'
+        ref_number = '0' + str(numTicketSequence),
+        departure_city = city,
+        departure_date = departureDate
     )
 
-    insertTicketIntoCityList(ticket, selectedCity)
-
-    numTicketSequence += 1
+    return ticket
 
 # Creado el ticket, se inserta en las ciudades correspondientes:
-def insertTicketIntoCityList(ticket, selectedCity):
-    currentCityNumber = selectedCity
-    currentCity = cities[currentCityNumber]
+def insertTicketIntoCitiesList(ticket, cityNumberArray):
+    cityNumberCounter = cityNumberArray
+    # print(f'\n  0. cityNumberArray: {cityNumberArray}  cityNumberCounter: {cityNumberCounter}')
 
-    # 1. Se ingresa el ticket en la ciudad elegida:
-    ticketsPerCity[currentCity].append(ticket)
+    if cityNumberCounter < len(cities):
+        currentCityName = cities[cityNumberCounter]
+        # print(f'\n  0. currentCityName: {currentCityName}')
+        
+        global ticketsPerCity
+        # print(f'\n  1. Ticket: {ticket}')
+        ticketsPerCity[currentCityName].append(ticket)
+        # print(f'\n  2. Ticket agregado a {currentCityName}')
+        # print(f'\n  3.1 ticketsPerCity: {ticketsPerCity}')
 
-    # 2. Luego se inserta en las ciudades siguientes en orden:
-    if currentCityNumber < len(cities) - 1:
-        insertTicketIntoCityList(ticket, currentCityNumber + 1)
+        modifiedTicket = dict(ticket)
+        cityNumberCounter += 1
+        modifiedTicket["departure_city"] = cities[cityNumberCounter - 1]
 
-    # Y acá se inserta en la ciudad final que es Viena:
+        insertTicketIntoCitiesList(modifiedTicket, cityNumberCounter)
+
+    # print(f'\n  ticketsPerCity: {ticketsPerCity}\n')
+
     ticketsToVienna.append(ticket)
-
-    print(f'\nTICKET INGRESADO.\n')
 
     printTicketList()
     selectOption()
