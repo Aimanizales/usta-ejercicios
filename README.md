@@ -2,10 +2,14 @@
 
 Requerimientos: Python 3.10.2
 
-## 3. Evaluación distancia 3 (TDA Dinámico/Estático):
-### Objetivos principales:
+## 4. Evaluación práctica (Sparce Matrix):
 - 
-### Nuevos features:
+#### ¿Cómo correr el ejercicio?
+```shell
+$ python3 eval-practica.py
+```
+
+## 3. Evaluación distancia 3 (TDA Dinámico/Estático):
 - 
 #### ¿Cómo correr el ejercicio?
 ```shell
