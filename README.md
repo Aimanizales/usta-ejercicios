@@ -1,4 +1,4 @@
-# Estructura de datos 2022-1 (USTA)
+# USTA -  Estructura de datos 2022-1 (USTA)
 
 Requerimientos: Python 3.10.2
 
