@@ -9,6 +9,6 @@ Denominaciones:
 - 10 billetes de $100,000 ($1,000,000).
 
 **Regla:**
-- Retiro mínimo: $10.000.
-- Saldo: aleatorio entre $100.000 y $300.000.
-- El cajero puede entregar dinero de diferente denominación.
+- [x] Retiro mínimo: $10.000.
+- [x] Saldo: aleatorio entre $100.000 y $300.000.
+- [ ] El cajero puede entregar dinero de diferente denominación.
