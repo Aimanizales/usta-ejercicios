@@ -11,4 +11,4 @@ Denominaciones:
 **Regla:**
 - [x] Retiro mínimo: $10.000.
 - [x] Saldo: aleatorio entre $100.000 y $300.000.
-- [ ] El cajero puede entregar dinero de diferente denominación.
+- [x] El cajero puede entregar dinero de diferente denominación.
