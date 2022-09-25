@@ -1,11 +1,23 @@
 import random
 
-bankNotesQuantities = {
-    10000: 100,
-    20000: 50,
-    50000: 20,
-    100000: 10
-}
+bankNotes = [
+    {
+        'value': 100000,
+        'quantity': 10,
+    },
+    {
+        'value': 50000,
+        'quantity': 20,
+    },
+    {
+        'value': 20000,
+        'quantity': 50,
+    },
+    {
+        'value': 10000,
+        'quantity': 100,
+    },
+]
 
 def printSelectedValue(amount):
     valueWithDecimals = '{0:,}'.format(amount)
@@ -15,10 +27,45 @@ def printSelectedValue(amount):
         '------------------------------------\n'
     )
 
+
 def calculateBankNotesToWithdraw(amount):
-    bankNotesQuantities[10000] -= 1
-    print(bankNotesQuantities[10000])
-    selectOption()
+    iterator = 0
+    accumulator = 0
+    bankNotesToDeliver = [0,0,0,0]
+
+    while accumulator < amount:
+        accumulator += bankNotes[iterator]['value']
+        bankNotesToDeliver[iterator] += 1
+        # print(f'Se sumó un billete de {bankNotes[iterator]["value"]}')
+        # print(f'accumulator = {accumulator}')
+        
+        if accumulator == amount:
+            # print(f'Se logró el monto de {accumulator}')
+            break
+
+        if accumulator > amount:
+            accumulator -= bankNotes[iterator]['value']
+            bankNotesToDeliver[iterator] -= 1
+
+            # print(f'Se restó {bankNotes[iterator]["value"]} porque se pasa')
+            # print(f'accumulator = {accumulator}')
+        
+        iterator += 1
+        if iterator > 3:
+            iterator = 0
+    
+    resumeBankNotes(bankNotesToDeliver)
+
+def resumeBankNotes(bankNotesToDeliver):
+    n = 0
+    for numOfBankNotes in bankNotesToDeliver:
+        currentBankNote = bankNotes[n]["value"]
+        currentBankNoteWithFormat = '{0:,}'.format(currentBankNote)
+        valuePerBankNote = currentBankNote * numOfBankNotes
+        valuePerBankNoteWithFormat = '{0:,}'.format(valuePerBankNote)
+        
+        print(f'{numOfBankNotes} billetes de ${currentBankNoteWithFormat}\t = ${valuePerBankNoteWithFormat}')
+        n += 1
 
 def calculateSavings():
     # saldo: mayor a 100,000 y menor a 300,000.
@@ -43,6 +90,7 @@ def selectOption():
             print('El valor debe ser en unidades de 10,000')
             selectOption()
         else:
+
             calculateBankNotesToWithdraw(valueToWidtraw)
             # quit()
     else:
