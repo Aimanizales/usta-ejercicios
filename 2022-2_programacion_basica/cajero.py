@@ -22,9 +22,9 @@ bankNotes = [
 def printSelectedValue(amount):
     valueWithDecimals = '{0:,}'.format(amount)
     print(
-        '------------------------------------\n'
+        '\n----------------------------------------\n'
         f'Valor digitado: ${valueWithDecimals}\n'
-        '------------------------------------\n'
+        '----------------------------------------\n'
     )
 
 
@@ -58,14 +58,21 @@ def calculateBankNotesToWithdraw(amount):
 
 def resumeBankNotes(bankNotesToDeliver):
     n = 0
+    print('========== El cajero entrega ===========')
     for numOfBankNotes in bankNotesToDeliver:
         currentBankNote = bankNotes[n]["value"]
         currentBankNoteWithFormat = '{0:,}'.format(currentBankNote)
         valuePerBankNote = currentBankNote * numOfBankNotes
         valuePerBankNoteWithFormat = '{0:,}'.format(valuePerBankNote)
+
+        billetes = 'billetes'
+        if numOfBankNotes == 1:
+            billetes = 'billete'
         
-        print(f'{numOfBankNotes} billetes de ${currentBankNoteWithFormat}\t = ${valuePerBankNoteWithFormat}')
+        print(f'{numOfBankNotes} {billetes} de ${currentBankNoteWithFormat}\t = ${valuePerBankNoteWithFormat}')
         n += 1
+    print('========================================')
+
 
 def calculateSavings():
     # saldo: mayor a 100,000 y menor a 300,000.
