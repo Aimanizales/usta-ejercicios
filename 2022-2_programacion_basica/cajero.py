@@ -19,14 +19,15 @@ bankNotes = [
     },
 ]
 
+def formatNumber(number):
+    return '{0:,}'.format(number)
+
 def printSelectedValue(amount):
-    valueWithDecimals = '{0:,}'.format(amount)
     print(
         '\n----------------------------------------\n'
-        f'Valor digitado: ${valueWithDecimals}\n'
+        f'Valor digitado: ${formatNumber(amount)}\n'
         '----------------------------------------\n'
     )
-
 
 def calculateBankNotesToWithdraw(amount):
     iterator = 0
@@ -36,6 +37,7 @@ def calculateBankNotesToWithdraw(amount):
     while accumulator < amount:
         accumulator += bankNotes[iterator]['value']
         bankNotesToDeliver[iterator] += 1
+        bankNotes[iterator]['quantity'] -= 1
         # print(f'Se sumó un billete de {bankNotes[iterator]["value"]}')
         # print(f'accumulator = {accumulator}')
         
@@ -46,6 +48,7 @@ def calculateBankNotesToWithdraw(amount):
         if accumulator > amount:
             accumulator -= bankNotes[iterator]['value']
             bankNotesToDeliver[iterator] -= 1
+            bankNotes[iterator]['quantity'] += 1
 
             # print(f'Se restó {bankNotes[iterator]["value"]} porque se pasa')
             # print(f'accumulator = {accumulator}')
@@ -58,28 +61,38 @@ def calculateBankNotesToWithdraw(amount):
 
 def resumeBankNotes(bankNotesToDeliver):
     n = 0
-    print('========== El cajero entrega ===========')
+    print('======================= El cajero entrega ========================')
     for numOfBankNotes in bankNotesToDeliver:
         currentBankNote = bankNotes[n]["value"]
-        currentBankNoteWithFormat = '{0:,}'.format(currentBankNote)
         valuePerBankNote = currentBankNote * numOfBankNotes
-        valuePerBankNoteWithFormat = '{0:,}'.format(valuePerBankNote)
+
+        currentBankNoteWithFormat = formatNumber(currentBankNote)
+        valuePerBankNoteWithFormat = formatNumber(valuePerBankNote)
 
         billetes = 'billetes'
         if numOfBankNotes == 1:
             billetes = 'billete'
-        
-        print(f'{numOfBankNotes} {billetes} de ${currentBankNoteWithFormat}\t = ${valuePerBankNoteWithFormat}')
-        n += 1
-    print('========================================')
 
+        tabulador = '\t'
+        if numOfBankNotes == 0:
+            tabulador = '\t\t'
+
+        
+        print(
+            f'{numOfBankNotes} {billetes} de ${currentBankNoteWithFormat}\t = ${valuePerBankNoteWithFormat}'
+            f'{tabulador}Quedan {bankNotes[n]["quantity"]} billetes'
+        )
+        n += 1
+    print('==================================================================')
 
 def calculateSavings():
     # saldo: mayor a 100,000 y menor a 300,000.
-    print('\n'
-        '========================================\n'
-        f'Su saldo es de ${100000 + random.randint(1, 20) * 10000}\n'
-        'Gracias.'
+    savings = 100000 + random.randint(1, 20) * 10000
+    print(
+        '\n-----------------------------\n'
+        f'Su saldo es de ${formatNumber(savings)}.\n'
+        'Gracias.\n'
+        '-----------------------------'
     )
 
 def selectOption():
@@ -97,9 +110,8 @@ def selectOption():
             print('El valor debe ser en unidades de 10,000')
             selectOption()
         else:
-
             calculateBankNotesToWithdraw(valueToWidtraw)
-            # quit()
+            calculateSavings()
     else:
         print('Debe digitar solo números.')
         selectOption()
