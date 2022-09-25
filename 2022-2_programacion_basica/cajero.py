@@ -112,6 +112,7 @@ def selectOption():
         else:
             calculateBankNotesToWithdraw(valueToWidtraw)
             calculateSavings()
+            quit()
     else:
         print('Debe digitar solo números.')
         selectOption()
