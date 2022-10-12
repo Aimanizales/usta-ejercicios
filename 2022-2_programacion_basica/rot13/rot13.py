@@ -1,8 +1,8 @@
-# algoritmo de cifrado Cesar y/o ROT13
+# Algoritmo de cifrado Cesar y/o ROT13
 
 alfabet = 'ABCDEFGHIJKLMNNÑOPQRSTUVWXYZ1234567890 '
 alfabetLength = len(alfabet)
-indexFactor = 5
+indexFactor = 3
 
 def init():
     stringToEncript = input('\n>>>>> Escriba una palabra a transformar: ').upper()
