@@ -3,9 +3,9 @@
 ## Eval. Distancia 2
 
 ### Actividad 1:
-Ejecutar el archivo `rott13.py` con Python 3:
+Ejecutar el archivo `rot13.py` con Python 3:
 ```
-$ python3 rott13.py
+$ python3 rot13.py
 ```
 ---
 
