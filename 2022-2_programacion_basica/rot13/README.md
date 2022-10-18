@@ -20,4 +20,5 @@ Ejemplo:
 2. Encriptada:  KRND
 ```
 https://es.wikipedia.org/wiki/Cifrado_C%C3%A9sar (desplazamiento 3 posiciones)
+
 https://es.wikipedia.org/wiki/ROT13 (Desplazamiento 13 posiciones)
