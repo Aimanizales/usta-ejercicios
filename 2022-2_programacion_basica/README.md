@@ -1,5 +1,5 @@
-# Programación básica
-
+# Programación básica (2022-II)
+Profesor: John Fredy Carrillo Walteros
 ## Evaluación Distancia 1 
 - Actividad 1: [Simulación cajero automático](cajero).
 
