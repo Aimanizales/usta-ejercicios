@@ -9,5 +9,5 @@ Profesor: John Fredy Carrillo Walteros
 
 ## Evaluación práctica
 - [Suma de filas de matriz cuadrada](suma).
-- [Multiplicación de matrices]().
+- [Multiplicación de matrices](multiplicacion/multip_array.py).
 - [Encriptado]().
