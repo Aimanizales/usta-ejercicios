@@ -1,42 +1,42 @@
+# Tareas:
 # 1. Definir tamaño de matriz cuadrada (n)
-# 2. Generar matriz 1
-# 3. Generar matriz 2
+# 2. Generar matriz A
+# 3. Generar matriz B
 # 4. Multiplicar
 # 5. Mostrar resultado
 
-# import random
-
-# https://geekflare.com/multiply-matrices-in-python/
-
 import numpy as np
 
-np.random.seed(27)
-A = np.random.randint(1,10, size = (3,3))
-B = np.random.randint(1,10, size = (3,2))
-print(f"Matrix A:\n {A}\n")
-print(f"Matrix B:\n {B}\n")
+np.random.seed()
 
 def multiply_matrix(A, B):
     global C
+
     if  A.shape[1] == B.shape[0]:
-        C = np.zeros((A.shape[0],B.shape[1]),dtype = int)
-        for row in range(rows): 
-            for col in range(cols):
+        shapeNewMatrix = (A.shape[0], B.shape[1])
+        C = np.zeros(shapeNewMatrix, dtype = int)
+
+        # iterar sobre filas de A:
+        for row in range(len(A)):
+            # iterar sobre columnas de B:
+            for col in range(len(B[0])):
                 for elt in range(len(B)):
                     C[row, col] += A[row, elt] * B[elt, col]
         return C
     else:
-        return "Sorry, cannot multiply A and B."
+        return "No se pueden multiplicar A y B."
 
-multiply_matrix(A, B)
-# def getRandomNumber(max):
-#     print('n', random.randint(1, max))
+def init():
+    matrixSize = np.random.randint(1,10)
+    print(matrixSize)
+    print(f'Multiplicación de matriz de {matrixSize} x {matrixSize}:')
+    A = np.random.randint(1,10, size = (matrixSize, matrixSize))
+    B = np.random.randint(1,10, size = (matrixSize, matrixSize))
 
-# def printMatrix():
-#     print()
+    print(f"Matriz A:\n {A}\n")
+    print(f"Matriz B:\n {B}\n")
 
-# def init():
-#     # print('Multiplicación de matriz')
-#     getRandomNumber(10)
+    print(f'======== Matriz resultante C de {matrixSize} x {matrixSize}: ==========')
+    print(multiply_matrix(A, B))
 
-# init()
+init()
