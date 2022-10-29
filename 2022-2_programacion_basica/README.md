@@ -8,6 +8,6 @@ Profesor: John Fredy Carrillo Walteros
 - Actividad 2: [Algoritmo de teclado numérico](teclado-celular).
 
 ## Evaluación práctica
-- [Suma de filas de matriz cuadrada](suma).
+- [Suma de filas de matriz cuadrada](suma/sumatriz.py).
 - [Multiplicación de matrices](multiplicacion/multip_array.py).
-- [Encriptado]().
+- [Encriptado](encriptado/encriptado.py).
